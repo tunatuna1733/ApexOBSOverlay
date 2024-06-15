@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Apex OBS Overlay</title>
+  </head>
+  <script>
+    let ws;
+    window.addEventListener('load', () => {
+        const wsUrl = 'wss://apex-ws.deno.dev/apex-ws-ow';
+        ws = new WebSocket(wsUrl);
+        ws.addEventListener('open', () => {
+            console.log('Connected to websocket.');
+        })
+        ws.addEventListener('message', (e) => {
+            console.log(e.data);
+            const elem = document.getElementById('ws-content');
+            elem.innerText = e.data;
+        });
+    });
+  </script>
+  <body>
+    <p id="ws-content"></p>
+  </body>
+</html>
