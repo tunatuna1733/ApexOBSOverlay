@@ -29,6 +29,11 @@
             console.log(e.data);
             const data = JSON.parse(e.data);
             if (data.uid !== uid) return;
+            if (!data.shouldDisplay) {
+                document.getElementById('obs-item').innerHTML = '';
+                document.getElementById('obs-amount').innerHTML = '';
+                return;
+            }
             const itemGrid = document.getElementById('obs-item');
             itemGrid.innerHTML = '';
             const dummyElem = document.createElement('div');
