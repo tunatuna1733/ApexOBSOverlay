@@ -7,7 +7,6 @@ body {
     left: 0px;
     width: 450px;
     height: 150px;
-    background-color:rgba(255, 255, 255, 0.2);
     display: grid;
     grid-template-rows: 50% 50%;
     grid-template-columns: 20% 20% 20% 20% 20%;
@@ -39,7 +38,8 @@ body {
 }
 
 .amount {
-    color: black;
+    color: white;
     top: 45%;
-    left: 60%;
+    text-align: center;
+    position: relative;
 }
