@@ -13,7 +13,7 @@
         const uid = params.get('uid');
         if (!uid) return;
         document.getElementById('main').remove();
-        const wsUrl = 'ws://apex-ws.deno.dev/apex-ws-ow';
+        const wsUrl = 'wss://apex-ws.deno.dev/apex-ws-ow';
         // const wsUrl = 'ws://localhost:8000/apex-ws-ow';
         ws = new WebSocket(wsUrl);
         ws.addEventListener('open', () => {
