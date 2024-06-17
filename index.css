@@ -1,45 +1,17 @@
 body {
-    position: static;
+    background-color: #121212;
 }
 
-.item-grid {
-    top: 0px;
-    left: 0px;
-    width: 450px;
-    height: 150px;
-    display: grid;
-    grid-template-rows: 50% 50%;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    position: absolute;
+#main {
+    margin: auto;
+    max-width: 800px;
 }
 
-.item {
-    background-image: url("./assets/outline.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.itemImage {
-    height: 50%;
-    width: auto;
-}
-
-.zeroItemImage {
-    filter: grayscale(100%);
-}
-
-.amountContainer {
-    width: 100%;
-    height: 100%;
-}
-
-.amount {
+#main-title {
     color: white;
-    top: 45%;
     text-align: center;
-    position: relative;
+}
+
+#description {
+    color: gray;
 }

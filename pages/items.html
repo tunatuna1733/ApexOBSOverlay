@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Apex OBS Item Overlay</title>
+    <link href="./items.css" rel="stylesheet" />
+  </head>
+  <script>
+    let ws;
+    window.addEventListener('load', () => {
+        const params = new URLSearchParams(window.location.search);
+        const uid = params.get('uid');
+        if (!uid) return;
+        const wsUrl = 'wss://apex-ws.deno.dev/apex-ws-ow';
+        ws = new WebSocket(wsUrl);
+        ws.addEventListener('open', () => {
+            console.log('Connected to websocket.');
+        });
+        ws.addEventListener('close', () => {
+            console.log('Connection closed.');
+        });
+        ws.addEventListener('error', (e) => {
+            console.error(e);
+        })
+        ws.addEventListener('message', (e) => {
+            console.log(e.data);
+            const data = JSON.parse(e.data);
+            if (data.uid !== uid) return;
+            if (!data.shouldDisplay) {
+                document.getElementById('obs-item').innerHTML = '';
+                document.getElementById('obs-amount').innerHTML = '';
+                return;
+            }
+            const itemGrid = document.getElementById('obs-item');
+            itemGrid.innerHTML = '';
+            const dummyElem = document.createElement('div');
+            itemGrid.appendChild(dummyElem);
+            Object.entries(data.data).forEach(([item, amount]) => {
+                // create outline element
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('item');
+                // create item image element
+                const imageElement = document.createElement('img');
+                imageElement.src = `../assets/${item}.png`;
+                imageElement.classList.add('itemImage');
+                if (amount === 0) imageElement.classList.add('zeroItemImage');
+                itemElement.appendChild(imageElement);
+                itemGrid.appendChild(itemElement);
+            });
+            const amountGrid = document.getElementById('obs-amount');
+            amountGrid.innerHTML = '';
+            const dummyElem2 = document.createElement('div');
+            amountGrid.appendChild(dummyElem2);
+            Object.values(data.data).forEach((amount) => {
+                const amountContainer = document.createElement('div');
+                amountContainer.classList.add('amountContainer');
+                // create amount text element
+                const amountElement = document.createElement('p');
+                amountElement.textContent = amount.toString();
+                amountElement.classList.add('amount');
+                amountContainer.appendChild(amountElement);
+                amountGrid.appendChild(amountContainer);
+            })
+        });
+    });
+  </script>
+  <body>
+    <div id="obs-item" class="item-grid"></div>
+    <div id="obs-amount" class="item-grid"></div>
+  </body>
+</html>
